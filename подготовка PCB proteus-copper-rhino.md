@@ -22,7 +22,7 @@
 -- CopperCam --
   
 3\.  Открываем CopperCam, Выбираем Parameters - Tool library, ищем слот для еще не созданного инструмента
-    Вводим следующие значения - Diameter - 0,2 mm, Profile: Cylindrical, Rotation: 12000 rpm, Plunge speed - 1 mm/s
+    Вводим следующие значения - Diameter - 0.2 mm, Profile: Cylindrical, Rotation: 12000 rpm, Plunge speed - 1 mm/s
     Имя можно поставить любое
     
 3.1\. Нажимаем File - Open - New circuit
@@ -30,7 +30,7 @@
      Убираем галочку у Call Milling Process immediately
      
 3.2\. В окне "Is this file import valid?" и следующем нажимаем Да,
-     в окне "Set countours" Number of successive countours - число 1, В Tool выбираем наш ранее созданный инструмент и OK.
+     в окне "Set countours" Number of successive countours - число 2, В Tool выбираем наш ранее созданный инструмент и OK.
      
 3.3\.  Сохраняем файл в формате DXF (File - Save), в export ничего не изменяем, в следующей вкладке в Sequence выбираем Drill then Mill
 
@@ -46,13 +46,23 @@
 
 4.3\. Выделяем пути, обе границы схем, дриллы со спиралями как слои, выбираем цвет. 
 
-4.4\. В RhinoCAM Создаем тул на плоское жало 0.2 мм;
+4.4\. В RhinoCAM создаем Engraving, в нем выбираем все дорожки;
+     Создаем тул на плоское жало 0.2 мм;
      Во вкладке "Feeds & Speeds" в каждом параметре должно быть введено значение 500 кроме рпм, которая стоит на 8000 RPM;
-     Во вкладке "Sorting" ставим Minimum Distance Sort;
-     В Cut Parameters должно стоять значение 0.03;
-	      В ПРОЦЕССЕ
+     Во вкладке "Sorting" ставим Minimum Distance Sort и Lower Left;
+     В "Cut Parameters" должно стоять значение 0.03, все остальные - 0;
+     В "Clearance" - Absolute Z Value на 6, и выбираем Clearance Plane
+     Нажимаем Generate
+4.5\. Тоже самое повторяем для Drill
 
-       
+4.6\. Создаем Pocketing, в нем также выбираем все дорожки с меньшей стороной платы, ставим все прошлые параметры кроме Minimum Distance Sort.
+      В Entry/Exit все значения должны быть по нулям;
+      В Cut Parameters выставляем Tolerance - 0.03, Stock - 0, Linear Cuts, Mixed, Start at bottom, Tool Dia. - 50%,  Cut Direction - Mixed, Cut Start Side - Right, Включаем Cleanup Pass;
+      нажимаем Generate.
+
+4.7\. Нажимаем ПКМ по MOp set, нажимаем Post, именуем файл и сохраняем.
+
+
 -- CANDLE --
 
 5\.   Открываем Candle
