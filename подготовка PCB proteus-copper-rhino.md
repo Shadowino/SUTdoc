@@ -15,12 +15,23 @@
 
 2.1\. Ставим все коннекторы на эту схему
 
+![shema](PCB/PCB1.png)
+
 2.2\. С помощью Track Mode подключаете коннекторы к ардуинке (GND к GND, 5V к 5V, и т.д.)
      Дорожки НЕ ДОЛЖНЫ пересекаться друг с другом, иначе будет короткое замыкание. 
 	Исключение для одинаковых дорожек (Т.е. GND можно подвести к другому GND)
  
-2.3\. Выбираем Output - Generate Gerber/Exclession file
+![shema](PCB/PCB2.png)
+
+2.3\. Ставим границы платы: Ставим прямоугольник > ПКМ по нему > Change Layer > Board edge
+
+![shema](PCB/PCB3.png)
+
+2.4\. Выбираем Output - Generate Gerber/Exclession file
      В экспорте отмечаем только Bottom Copper и Drill, ставим папку в который экспортируется файл
+
+Так выглядит готовая схема в протеусе.
+![shema](PCB/PCB5.png) 
 
 ## COPPERCAM
   
@@ -28,18 +39,28 @@
     Вводим следующие значения - Diameter - 0.2 mm, Profile: Cylindrical, Rotation: 12000 rpm, Plunge speed - 1 mm/s
     Имя можно поставить любое
     
+![shema](PCB/PCB6.png) 
+
 3.1\. Нажимаем File - Open - New circuit
      В Solder Side импортируем GBR файл с Bottom Copper в названии, а в Drills - с Drill
      Убираем галочку у Call Milling Process immediately
+
+![shema](PCB/PCB7.png) 
      
 3.2\. В окне "Is this file import valid?" и следующем нажимаем Да,
      в окне "Set countours" Number of successive countours - число 2, В Tool выбираем наш ранее созданный инструмент и OK.
      
 3.3\.  Сохраняем файл в формате DXF (File - Save), в export ничего не изменяем, в следующей вкладке в Sequence выбираем Drill then Mill
 
+Так выглядит готовая плата в CopperCam.
+
+![shema](PCB/PCB8.png) 
+
 ## RHINO
 
 4\. Открываем полученный файл в рино. Выравниваем дриллы и плату на уровне путей.
+
+![shema](PCB/PCB9.png) 
 
 4.1\. Создаем спираль (Curve -> Spiral -> Flat), в значении Turns должно стоять число 3;
 	 Выставляем любой дрилл как центр, и создаем спираль вокруг него размером в 1 кв. миллиметр
@@ -48,6 +69,8 @@
 
 4.3\. Выделяем пути, обе границы схем, дриллы со спиралями как слои, выбираем цвет. 
 
+![shema](PCB/PCB10.png) 
+
 4.4\. В RhinoCAM создаем Engraving, в нем выбираем все дорожки;
      Создаем тул на плоское жало 0.2 мм;
      Во вкладке "Feeds & Speeds" в каждом параметре должно быть введено значение 500 кроме рпм, которая стоит на 8000 RPM;
@@ -55,6 +78,11 @@
      В "Cut Parameters" должно стоять значение 0.03, все остальные - 0;
      В "Clearance" - Absolute Z Value на 6, и выбираем Clearance Plane
      Нажимаем Generate
+
+Тул, который нужно создать
+
+![shema](PCB/PCB11.png) 
+
 4.5\. Тоже самое повторяем для Drill
 
 4.6\. Создаем Pocketing, в нем также выбираем все дорожки с меньшей стороной платы, ставим все прошлые параметры кроме Minimum Distance Sort.
